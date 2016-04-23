@@ -13,11 +13,12 @@ import FontIcon from 'material-ui/lib/font-icon';
 import RemoveRedEye from 'material-ui/lib/svg-icons/image/remove-red-eye';
 
 import {connect} from 'react-redux'
+import RoseFilterContainer from './Filter'
+import DropDownMenu from 'material-ui/lib/DropDownMenu';
 
 
 
-
-export default class RoseFilter extends React.Component  {
+export default class RoseFilterNav extends React.Component  {
 
   constructor(props) {
     super(props);
@@ -40,13 +41,18 @@ export default class RoseFilter extends React.Component  {
         />
         <LeftNav width={200} openRight={false} open={this.state.open} >
           <AppBar title="Filters"/>
-          <MenuItem primaryText="Preview" leftIcon={<RemoveRedEye />} />
-          <MenuItem primaryText="Share" leftIcon={<RemoveRedEye />} />
-          <MenuItem primaryText="Get links" leftIcon={<RemoveRedEye />} />
-          <Divider />
 
-          <MenuItem primaryText="Share" leftIcon={<RemoveRedEye />} />
-          <MenuItem primaryText="Get links" leftIcon={<RemoveRedEye />} />
+
+
+          {(Object.keys(this.props.filters)).map((filter_key)=>{
+            const filter = this.props.filters[filter_key]
+            console.log(filter)
+            return (
+
+              <RoseFilterContainer filter_title={filter_key}/>
+              )
+          })}
+          <Divider />
         </LeftNav>
       </div>
     );
@@ -63,10 +69,10 @@ export default class RoseFilter extends React.Component  {
 //   return {roses: state.roses.tables.roses}
 // }
 //
-// const RoseGridListContainer = connect(
-//   anus
-// )(RoseGridList)
+const RoseFilterNavContainer = connect(
+  state =>({filters: state.roses.tables.filters})
+)(RoseFilterNav)
 
 
 
-// export default RoseGridListContainer;
+export default RoseFilterNavContainer;
